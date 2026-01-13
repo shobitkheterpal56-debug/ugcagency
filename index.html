@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ascend.io | Performance-First UGC Infrastructure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ruby: #e11d48;
+            --obsidian: #0a0a0a;
+            --slate-border: rgba(255, 255, 255, 0.06);
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--obsidian);
+            color: #f8fafc;
+            overflow-x: hidden;
+            letter-spacing: -0.01em;
+        }
+
+        .glass-card {
+            background: rgba(15, 15, 15, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--slate-border);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-primary {
+            background: #f8fafc;
+            color: #000;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .btn-primary:hover {
+            background: var(--ruby);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px var(--ruby);
+        }
+
+        /* Clean Fade Animation */
+        .price-display {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-flex;
+            align-items: center;
+            /* Slim font styling */
+            font-weight: 200; 
+            letter-spacing: -0.02em;
+        }
+
+        .price-updating {
+            opacity: 0;
+            transform: translateY(4px);
+            filter: blur(4px);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mesh-gradient {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(225, 29, 72, 0.08) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, rgba(225, 29, 72, 0.08) 0, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .tab-active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .v-container {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            filter: grayscale(1) contrast(0.5);
+            opacity: 0.15;
+            transition: all 0.5s ease;
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="mesh-gradient"></div>
+
+    <!-- Minimal Nav -->
+    <nav class="fixed w-full z-50 border-b border-white/[0.05] bg-black/50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2 font-bold text-lg tracking-tight">
+                <div class="w-2 h-2 rounded-full bg-rose-600"></div>
+                ASCEND<span class="opacity-40">.IO</span>
+            </div>
+            <div class="hidden md:flex gap-12 text-[10px] uppercase tracking-[0.2em] font-semibold text-zinc-500">
+                <a href="#protocol" class="hover:text-white transition-colors">Infrastructure</a>
+                <a href="#pricing" class="hover:text-white transition-colors">Deployment</a>
+            </div>
+            <button onclick="scrollToBooking()" class="text-[10px] uppercase tracking-widest font-bold px-6 py-2 border border-white/10 rounded-full hover:bg-white hover:text-black transition-all">
+                Access Audit
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="pt-52 pb-32 px-8">
+        <div class="max-w-5xl mx-auto text-center reveal active">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-rose-500/20 bg-rose-500/5 text-rose-500 text-[10px] uppercase tracking-[0.2em] font-bold mb-8">
+                V3 Protocol Live
+            </div>
+            <h1 class="text-7xl md:text-[100px] font-extrabold tracking-tighter leading-[0.85] mb-10 text-white">
+                Engineered for <br/> <span class="text-rose-600">Pure Performance.</span>
+            </h1>
+            <p class="text-zinc-500 text-lg md:text-xl mb-14 max-w-2xl mx-auto font-medium leading-relaxed">
+                High-fidelity creative infrastructure for brands scaling beyond ₹1Cr/mo. Deploy content designed as a financial asset.
+            </p>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-6">
+                <button onclick="scrollToBooking()" class="btn-primary px-10 py-5 rounded-full font-bold text-sm uppercase tracking-widest w-full md:w-auto">
+                    Initialize Deployment
+                </button>
+                <a href="#protocol" class="text-zinc-500 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors">Explore Protocol</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="protocol" class="py-32 px-8">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-px bg-white/5 border border-white/5 rounded-3xl overflow-hidden reveal">
+            <div class="p-16 bg-[#0a0a0a] hover:bg-[#0d0d0d] transition-colors group">
+                <div class="text-rose-600 mb-8"><i data-lucide="cpu" class="w-8 h-8"></i></div>
+                <h3 class="text-xl font-bold mb-4 uppercase tracking-tight">Scalable Synthesis</h3>
+                <p class="text-zinc-500 text-sm leading-relaxed font-medium">Assets optimized for high-velocity ad managers. No creative fatigue.</p>
+            </div>
+            <div class="p-16 bg-[#0a0a0a] hover:bg-[#0d0d0d] transition-colors group">
+                <div class="text-rose-600 mb-8"><i data-lucide="layers" class="w-8 h-8"></i></div>
+                <h3 class="text-xl font-bold mb-4 uppercase tracking-tight">The Hook Matrix</h3>
+                <p class="text-zinc-500 text-sm leading-relaxed font-medium">Algorithmic iteration on first-3-second retention hooks.</p>
+            </div>
+            <div class="p-16 bg-[#0a0a0a] hover:bg-[#0d0d0d] transition-colors group">
+                <div class="text-rose-600 mb-8"><i data-lucide="database" class="w-8 h-8"></i></div>
+                <h3 class="text-xl font-bold mb-4 uppercase tracking-tight">Data Integrity</h3>
+                <p class="text-zinc-500 text-sm leading-relaxed font-medium">Closing the loop between media buyers and creative directors.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="py-40 px-8 bg-[#020202] relative overflow-hidden">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-xs uppercase tracking-[0.4em] font-bold text-rose-600 mb-4">Infrastructure Tiers</h2>
+                <h3 class="text-4xl font-bold text-white tracking-tight">Deploy Performance Capital</h3>
+            </div>
+
+            <div class="flex justify-center mb-16 reveal">
+                <div class="inline-flex p-1 bg-white/[0.03] border border-white/[0.05] rounded-full">
+                    <button onclick="updateTier('low')" id="t-low" class="px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all tab-active">Starter</button>
+                    <button onclick="updateTier('mid')" id="t-mid" class="px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all text-zinc-600">Scale</button>
+                    <button onclick="updateTier('high')" id="t-high" class="px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all text-zinc-600">Hyperscale</button>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-[3rem] p-12 md:p-20 relative overflow-hidden reveal active">
+                <div class="v-container" id="v-icon">🚲</div>
+                
+                <div class="text-center">
+                    <div id="t-name" class="text-[10px] uppercase tracking-[0.5em] text-zinc-500 font-bold mb-8 uppercase">Starter Protocol</div>
+                    
+                    <div class="flex items-center justify-center gap-1 mb-12">
+                        <span class="text-3xl font-light text-zinc-700 mr-2">₹</span>
+                        <div class="price-display text-7xl md:text-9xl text-white" id="price-value">
+                            50,000
+                        </div>
+                        <span class="text-[10px] text-zinc-600 font-bold uppercase tracking-widest ml-4">/deployment</span>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8 text-left border-t border-white/[0.05] pt-12">
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 text-[11px] font-bold uppercase tracking-widest text-zinc-400">
+                                <i data-lucide="terminal" class="w-4 h-4 text-rose-600"></i> <span id="f-1">05 Core Assets</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-[11px] font-bold uppercase tracking-widest text-zinc-400">
+                                <i data-lucide="terminal" class="w-4 h-4 text-rose-600"></i> <span id="f-2">15 Creative Hooks</span>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 text-[11px] font-bold uppercase tracking-widest text-zinc-400">
+                                <i data-lucide="terminal" class="w-4 h-4 text-rose-600"></i> Performance Media Sync
+                            </div>
+                            <div class="flex items-center gap-3 text-[11px] font-bold uppercase tracking-widest text-zinc-400">
+                                <i data-lucide="terminal" class="w-4 h-4 text-rose-600"></i> Global Usage License
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="booking" class="py-32 px-8 text-center bg-black">
+        <div class="max-w-2xl mx-auto">
+            <h2 class="text-4xl font-bold mb-10 tracking-tight text-white">Ready for Infrastructure Upgrade?</h2>
+            <button onclick="scrollToBooking()" class="btn-primary px-12 py-6 rounded-full font-bold text-xs uppercase tracking-[0.3em]">
+                Request Access
+            </button>
+            <p class="mt-12 text-[10px] text-zinc-700 font-bold uppercase tracking-[0.4em]">
+                © 2024 ASCEND INFRASTRUCTURE • ALL SYSTEMS OPERATIONAL
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        const tierData = {
+            low: { name: 'Starter Protocol', price: '50,000', f1: '05 Core Assets', f2: '15 Creative Hooks', icon: '🚲' },
+            mid: { name: 'Scale Engine', price: '85,000', f1: '12 Strategic Assets', f2: '40 Creative Hooks', icon: '🏎️' },
+            high: { name: 'Hyperscale Protocol', price: '1,50,000', f1: 'Unlimited Sprinting', f2: 'Full Performance Lab', icon: '🚀' }
+        };
+
+        function updateTier(tier) {
+            const data = tierData[tier];
+            const priceEl = document.getElementById('price-value');
+            
+            // Add fade out
+            priceEl.classList.add('price-updating');
+            
+            setTimeout(() => {
+                // Update text
+                priceEl.innerText = data.price;
+                document.getElementById('t-name').innerText = data.name;
+                document.getElementById('f-1').innerText = data.f1;
+                document.getElementById('f-2').innerText = data.f2;
+                document.getElementById('v-icon').innerText = data.icon;
+                
+                // Fade back in
+                priceEl.classList.remove('price-updating');
+            }, 200);
+
+            // Update Toggles UI
+            document.querySelectorAll('[id^="t-"]').forEach(btn => btn.className = 'px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all text-zinc-600');
+            document.getElementById('t-' + tier).className = 'px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all tab-active';
+        }
+
+        function scrollToBooking() { document.getElementById('booking').scrollIntoView({ behavior: 'smooth' }); }
+    </script>
+</body>
+</html>
